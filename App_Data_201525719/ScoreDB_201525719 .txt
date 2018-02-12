@@ -1,0 +1,150 @@
+USE [ScoreDB_201525719]
+GO
+/****** Object:  Table [dbo].[CusUsers]    Script Date: 05/06/2017 14:00:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[CusUsers](
+	[customerid] [int] IDENTITY(1,1) NOT NULL,
+	[Customername] [nvarchar](50) NULL,
+	[customerpwd] [varchar](50) NULL,
+	[Realname] [nvarchar](50) NULL,
+	[CustomerSfz] [nvarchar](50) NULL,
+	[address] [nvarchar](50) NULL,
+	[telphone] [varchar](30) NULL,
+	[IsCusAdmin] [int] NULL,
+	[CusType] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[customerid] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+SET IDENTITY_INSERT [dbo].[CusUsers] ON
+INSERT [dbo].[CusUsers] ([customerid], [Customername], [customerpwd], [Realname], [CustomerSfz], [address], [telphone], [IsCusAdmin], [CusType]) VALUES (1, N'admin', N'21232F297A57A5A743894A0E4A801FC3', NULL, NULL, NULL, NULL, 0, 0)
+SET IDENTITY_INSERT [dbo].[CusUsers] OFF
+/****** Object:  Table [dbo].[Course_]    Script Date: 05/06/2017 14:00:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Course_](
+	[courseNo] [varchar](20) NOT NULL,
+	[courseName] [varchar](20) NOT NULL,
+	[teacherName] [varchar](20) NULL,
+	[courseCount] [int] NOT NULL,
+	[courseScore] [float] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[courseNo] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Class_]    Script Date: 05/06/2017 14:00:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Class_](
+	[classNo] [varchar](20) NOT NULL,
+	[className] [varchar](20) NOT NULL,
+	[banzhuren] [varchar](20) NULL,
+	[beginTime] [datetime] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[classNo] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[TermInfo_]    Script Date: 05/06/2017 14:00:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[TermInfo_](
+	[termId] [int] IDENTITY(1,1) NOT NULL,
+	[termName] [varchar](20) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[termId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Student_]    Script Date: 05/06/2017 14:00:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Student_](
+	[studentNumber] [varchar](20) NOT NULL,
+	[studentName] [varchar](20) NOT NULL,
+	[sex] [varchar](2) NOT NULL,
+	[classInfo] [varchar](20) NOT NULL,
+	[birthday] [datetime] NULL,
+	[zhengzhimianmao] [varchar](20) NULL,
+	[telephone] [varchar](20) NULL,
+	[address] [varchar](20) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[studentNumber] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Score_]    Script Date: 05/06/2017 14:00:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Score_](
+	[scoreId] [int] IDENTITY(1,1) NOT NULL,
+	[studentNo] [varchar](20) NOT NULL,
+	[courseNo] [varchar](20) NOT NULL,
+	[termId] [int] NOT NULL,
+	[score] [float] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[scoreId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  ForeignKey [FK__Score_QQ2__cours__03317E3D]    Script Date: 05/06/2017 14:00:04 ******/
+ALTER TABLE [dbo].[Score_]  WITH CHECK ADD FOREIGN KEY([courseNo])
+REFERENCES [dbo].[Course_] ([courseNo])
+GO
+/****** Object:  ForeignKey [FK__Score_QQ2__stude__023D5A04]    Script Date: 05/06/2017 14:00:04 ******/
+ALTER TABLE [dbo].[Score_]  WITH CHECK ADD FOREIGN KEY([studentNo])
+REFERENCES [dbo].[Student_] ([studentNumber])
+GO
+/****** Object:  ForeignKey [FK__Score_QQ2__termI__0425A276]    Script Date: 05/06/2017 14:00:04 ******/
+ALTER TABLE [dbo].[Score_]  WITH CHECK ADD FOREIGN KEY([termId])
+REFERENCES [dbo].[TermInfo_] ([termId])
+GO
+/****** Object:  ForeignKey [FK__Student_Q__class__014935CB]    Script Date: 05/06/2017 14:00:04 ******/
+ALTER TABLE [dbo].[Student_]  WITH CHECK ADD FOREIGN KEY([classInfo])
+REFERENCES [dbo].[Class_] ([classNo])
+GO
